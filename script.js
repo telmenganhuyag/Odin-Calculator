@@ -1,29 +1,10 @@
-function add(a, b) { 
-    return a + b;
-}
-
-function subtract(a, b) { 
-    return a - b;
-}
-
-function multiply(a, b) { 
-    return a * b;   
-}
-
-function divide(a, b) { 
-    return a / b;
-}
-
-const display = document.querySelector('#display');
-const exec = display.innerText;
-
-console.log(exec);
-
 let displayValue = '0';
 let firstOperand = null;
 let secondOperand = null;
 let operator = null;
 let result = null;
+const display = document.querySelector('#display');
+
 
 function updateDisplay() { 
     display.innerText = displayValue;
@@ -53,16 +34,26 @@ function operate (x, y, op) {
 
 const numberBtn = (event) => { 
     const btn = event.target;
+    if (display.innerText === '0') { 
+        display.innerText = '';
+    }
     display.innerText += btn.innerText;
-
+    displayValue = display.innerText;
+    firstOperand = displayValue;
 };
 
 // const operatorBtn = (event) => { 
-//     const op = event.target.innerText;
-//     exec = x;
+//     operator = event.target.innerText;
+//     if (display.innerText !== '')
+//     if (operator === '+') { 
+//         result = firstOperand + secondOperand;
+//     // } else if (operator === '-') { 
+//     //     result = firstOperand - secondOperand;
+//     // } else if (operator === '*') { 
+//     //     result = firstOperand * secondOperand;
+//     // } else if (operator)
 // };
 
 
 document.querySelectorAll('.operand').forEach((button) => button.addEventListener('click', numberBtn));
 // document.querySelectorAll('.operator').forEach((button) => button.addEventListener('click', operatorBtn));
-
