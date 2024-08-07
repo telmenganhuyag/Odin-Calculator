@@ -77,7 +77,7 @@
 //   .addEventListener('click', operate);
 
 
-let displayValue = '0'; // Change to string to concatenate digits easily
+let displayValue = '0';
 let firstOperand = null;
 let secondOperand = null;
 let operator = null;
@@ -113,7 +113,6 @@ function onOperator(e) {
   operator = button;
   if (button === 'X') operator = '*';
   firstOperand = displayValue;
-  // displayValue = '0'; // Reset displayValue for the next operand
   displayValue = firstOperand;
   updateDisplay();
   console.log("Operator selected:", operator);
