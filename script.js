@@ -1,59 +1,168 @@
-let displayValue = '0';
+// let displayValue = '0';
+// let firstOperand = null;
+// let secondOperand = null;
+// let operator = null;
+// let result;
+// const display = document.getElementById('display');
+
+// function updateDisplay() {
+//   if (displayValue.length > 9) {
+//     display.innerText = displayValue.substring(0, 9);
+//   } else { 
+//     display.innerText = displayValue;
+//   }
+// }
+
+// updateDisplay();
+
+// function addNum(e) {
+//   const button = e.target.innerText;
+//   if (displayValue === firstOperand) displayValue = '';
+//   if (displayValue === '0') displayValue = '';
+//   displayValue += button;
+//   updateDisplay();
+//   if (firstOperand !== null) { 
+//     secondOperand = displayValue;
+//   }
+//   console.log(firstOperand);
+//   console.log(secondOperand);
+//   console.log(operator);
+// }
+
+// function onOperator(e) {
+//   const button = e.target.innerText;
+//   operator = button;
+//   firstOperand = displayValue;
+//   displayValue = '0';
+//   // displayValue = firstOperand;
+//   updateDisplay();
+// }
+
+// function operate() {
+//   const x = parseFloat(firstOperand);
+//   const y = parseFloat(secondOperand);
+//   if (operator === '+') {
+//     result = x + y;
+//   } else if (operator === '-') {
+//     result = x - y;
+//   } else if (operator === '*') {
+//     result = x * y;
+//   } else if (operator === '/') {
+//     if (y === '0') {
+//       result = 'no';
+//     } else result = x / y;
+//   }
+//   displayValue = result.toString();
+//   updateDisplay();
+// }
+
+// function clearBtn() {
+//   displayValue = '0';
+//   firstOperand = null;
+//   secondOperand = null;
+//   operator = null;
+//   result = 0;
+//   updateDisplay();
+// }
+
+// document
+//   .querySelectorAll('.operand')
+//   .forEach((button) => button.addEventListener('click', addNum));
+// document
+//   .querySelectorAll('.operator')
+//   .forEach((button) => button.addEventListener('click', onOperator));
+// document.getElementById('clear').addEventListener('click', clearBtn);
+// document
+//   .querySelector('.equal')
+//   .addEventListener('click', operate);
+
+
+let displayValue = '0'; // Change to string to concatenate digits easily
 let firstOperand = null;
 let secondOperand = null;
 let operator = null;
-let result = null;
-const display = document.querySelector('#display');
+let result;
+const display = document.getElementById('display');
 
-
-function updateDisplay() { 
+function updateDisplay() {
+  if (displayValue.length > 9) {
+    display.innerText = displayValue.substring(0, 9);
+  } else {
     display.innerText = displayValue;
-    if (displayValue.length > 9) { 
-        display.innerText = displayValue.substring(0, 9);
-    }
+  }
 }
 
 updateDisplay();
 
-
-function operate (x, y, op) { 
-    if (op === '+') { 
-        return x + y;
-    } else if (op === '-') { 
-        return x - y;
-    } else if (op === '*') { 
-        return x * y;
-    } else if (op === '/') { 
-        if (y === '0') { 
-            return 'no';
-        } else return x / y;
-    }
+function addNum(e) {
+  const button = e.target.innerText;
+  if (displayValue === firstOperand) displayValue = '';
+  if (displayValue === '0') displayValue = '';
+  displayValue += button;
+  updateDisplay();
+  if (firstOperand !== null) {
+    secondOperand = displayValue;
+  }
+  console.log("First Operand:", firstOperand);
+  console.log("Second Operand:", secondOperand);
+  console.log("Operator:", operator);
 }
 
+function onOperator(e) {
+  const button = e.target.innerText;
+  operator = button;
+  if (button === 'X') operator = '*';
+  firstOperand = displayValue;
+  // displayValue = '0'; // Reset displayValue for the next operand
+  displayValue = firstOperand;
+  updateDisplay();
+  console.log("Operator selected:", operator);
+}
 
-
-const numberBtn = (event) => { 
-    const btn = event.target;
-    if (display.innerText === '0') { 
-        display.innerText = '';
+function operate() {
+  if (firstOperand === null || secondOperand === null || operator === null) {
+    return;
+  }
+  const x = parseFloat(firstOperand);
+  const y = parseFloat(secondOperand);
+  console.log("Operating on:", x, y, operator);
+  if (operator === '+') {
+    result = x + y;
+  } else if (operator === '-') {
+    result = x - y;
+  } else if (operator === '*') {
+    result = x * y;
+  } else if (operator === '/') {
+    if (y === 0) {
+      result = 'no';
+    } else {
+      result = x / y;
     }
-    display.innerText += btn.innerText;
-    displayValue = display.innerText;
-    firstOperand = displayValue;
-};
+  }
+  displayValue = result.toString();
+  firstOperand = displayValue;
+  secondOperand = null;
+  operator = null;
+  updateDisplay();
+  console.log("Result:", result);
+}
 
-// const operatorBtn = (event) => { 
-//     operator = event.target.innerText;
-//     if (display.innerText !== '')
-//     if (operator === '+') { 
-//         result = firstOperand + secondOperand;
-//     // } else if (operator === '-') { 
-//     //     result = firstOperand - secondOperand;
-//     // } else if (operator === '*') { 
-//     //     result = firstOperand * secondOperand;
-//     // } else if (operator)
-// };
+function clearBtn() {
+  displayValue = '0';
+  firstOperand = null;
+  secondOperand = null;
+  operator = null;
+  result = 0;
+  updateDisplay();
+}
 
-
-document.querySelectorAll('.operand').forEach((button) => button.addEventListener('click', numberBtn));
-// document.querySelectorAll('.operator').forEach((button) => button.addEventListener('click', operatorBtn));
+document
+  .querySelectorAll('.operand')
+  .forEach((button) => button.addEventListener('click', addNum));
+document
+  .querySelectorAll('.operator')
+  .forEach((button) => button.addEventListener('click', onOperator));
+document.getElementById('clear').addEventListener('click', clearBtn);
+document
+  .querySelector('.equal')
+  .addEventListener('click', operate);
